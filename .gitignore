@@ -118,4 +118,4 @@ dist
 .pnp.*
 
 
-config.js
+config/config.js
