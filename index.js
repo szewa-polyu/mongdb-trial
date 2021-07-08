@@ -1,26 +1,9 @@
-// https://github.com/udayakumarvdm/MongoDB-connection-using-Mongoose-and-Node-JS
+const { config } = require('./config/config');
+const connectDB = require('./utils/dataAccess/connectDb');
+const createDummy = require('./utils/mockData/createDummy');
 
-mongoose.connect('mongodb://localhost/testDB', function (err) {
-   if (err) throw err;
-   console.log('Successfully connected');
-   
-   // Create User Obiect
-    var UserObject = new User({
-        name: {
-          firstName: 'Sample',
-          lastName: 'Example'
-        }
-     });
-     
-   //Save the document into User table.
-   UserObject.save(function(err){
-    if (err) throw err;
-   })
-   
-   //Find the all user in User table.
-   User.find({}, function(err, dbUsers){
-    if (err) throw err;
-      console.log(JSON.stringify(dbUsers));
-   });
-   
-});
+// Connect Database
+const { isDebug, connectionString } = config.database;
+//connectDB(connectionString, isDebug);
+
+createDummy();
