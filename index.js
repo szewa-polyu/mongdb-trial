@@ -1,9 +1,15 @@
 const { config } = require('./config/config');
 const connectDB = require('./utils/dataAccess/connectDb');
-const createDummy = require('./utils/mockData/createDummy');
+const { createAndSaveDummy } = require('./models/Dummy');
 
-// Connect Database
-const { isDebug, connectionString } = config.database;
-//connectDB(connectionString, isDebug);
+// https://github.com/udayakumarvdm/MongoDB-connection-using-Mongoose-and-Node-JS
 
-createDummy();
+const startAsync = async _ => {
+  // Connect Database
+  const { isDebug, connectionString } = config.database;
+  connectDB(connectionString, isDebug);
+
+  await createAndSaveDummy();
+};
+
+startAsync();

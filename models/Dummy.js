@@ -1,6 +1,7 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+const dayjs = require('dayjs');
 
-const dummySchema = Schema({
+const dummySchema = mongoose.Schema({
   myId: {
     type: String
   },
@@ -41,11 +42,48 @@ const dummySchema = Schema({
     }
   },
   create: {
-    type: String
+    type: Date,
+    default: Date.now
   },
   update: {
-    type: String
+    type: Date,
+    default: Date.now
   }
 });
 
-module.exports.Dummy = mongoose.model('Dummy', dummySchema);
+const Dummy = mongoose.model('dummy', dummySchema);
+
+const createDummy = _ => {
+  return new Dummy({
+    myId: dayjs().format('YYYYMMDDTHHmmSSS'),
+    data: {
+      ABCDE: {
+        A: ['11.1', '111'],
+        B: ['11.1', '111'],
+        C: ['11.1', '111'],
+        D: ['11.1', '111'],
+        E: ['11.1', '111'],
+        F: ['11.1', '111'],
+        G: ['11.1', '111'],
+        H: ['11.1', '111'],
+        I: ['11.1', '111']
+      },
+      E: ['11.1', '111'],
+      F: ['11.1', '111'],
+      AG: '12314.12',
+      AH: '12314.12',
+      AI: '12314.12',
+      AP: '12314.12',
+      AX: '12314.12',
+      AY: '12314.12',
+      AZ: '12314.12'
+    }
+  });
+};
+
+const createAndSaveDummy = async _ => {
+  const newDummy = createDummy();
+  await newDummy.save();
+};
+
+module.exports.createAndSaveDummy = createAndSaveDummy;
