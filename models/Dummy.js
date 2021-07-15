@@ -84,6 +84,7 @@ const createDummy = _ => {
 const createAndSaveDummy = async _ => {
   const newDummy = createDummy();
   await newDummy.save();
+  return newDummy.myId;
 };
 
 module.exports.createAndSaveDummy = createAndSaveDummy;
