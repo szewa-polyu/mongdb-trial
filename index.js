@@ -9,9 +9,11 @@ const { logInfoAsync } = require('./utils/logging/logInfo');
 
 // https://github.com/udayakumarvdm/MongoDB-connection-using-Mongoose-and-Node-JS
 
-const writeRecordsToFileAsync = (dummyMyIds, outputFile) =>
+const appendRecordsToFileAsync = (dummyMyIds, outputFile) =>
   new Promise((resolve, reject) => {
-    const stream = createWriteStream(outputFile);
+    const stream = createWriteStream(outputFile, {
+      flags: 'a'
+    });
 
     stream
       // https://nodejs.org/api/stream.html#stream_event_finish
@@ -51,7 +53,7 @@ const startAsync = async _ => {
       console.log(`${i}: ${dummyMyId}`);
     }
 
-    await writeRecordsToFileAsync(dummyMyIds, recordsFile);
+    await appendRecordsToFileAsync(dummyMyIds, recordsFile);
 
     await disconnectDbAsync();
 
